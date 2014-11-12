@@ -1,0 +1,106 @@
+CSE132 Cover Page for Lab 5a
+
+By submitting this assignment, you certify that you have read, 
+understood, and complied with the CSE 132 Collaboration Policy.
+
+Who worked on this lab?
+
+     Last Name           Last 3 Digits of student's ID
+
+1)	 Wang				 570
+2)   Zhou				 816
+3)   Liu                 789
+4)   Wang				 999
+
+--Tell us about your protocol:
+
+Message type:
+0 - hello message (client to server) 
+	name - UTF8-encoded String
+1 - hello response message (server to client) 
+	game version - 1 byte
+	player number - 1 byte
+2 - Quit message (client to server)
+	player number - 1 byte
+3 - Leave message (server to client)
+	player number - 1 byte
+4 - Start message (client to server) 
+	player number - 1 byte
+5 - gamefield update message (server to clients) 
+	cards left in deck - 1 byte
+	current field size - 1 byte
+	12 cards - 1 String per card
+6 - gameplayer update message (server to clients) 
+	number of players - 1 byte
+	per player: player number - 1 byte
+7 - gamescore update message (server to clients) 
+	number of players - 1 byte
+	per player: player number - 1 byte
+				player score - 1 byte
+8 - numberOfPlayer upper limit (server to client)
+	number of player - 1 byte
+9 - Input message(client to server)
+    message -UTF8-encoded String
+10 - ChatBox update(server to client)
+    message -UTF8-encoded String
+13 - player call (client to server)
+	 player number - 1 byte
+14 - allow select cards (server to client) 
+ 	 player number - 1 byte
+15 - player send selected card (client to server)
+	 player number - 1 byte
+	 3 cards - 1 String per card
+16 - player send time out
+	 player number - 1 byte
+	 indicator - 1 byte
+18 - invalid set (server to clients)
+	 player number - 1 byte
+	 reason - 1 byte (1 == TIMEOUT, 2 == NOTASET)
+	 Note: Feel free to add additional possible reasons to this message type.
+60 - game over (server to clients)
+	 winning player number - 1 byte
+
+
+
+If there is anything else we should know about your work on this assignment, 
+please explain here:
+
+Special Notice!!!
+1`  Run GameServerOnly as the server and Client as the client
+2`  Players need to play 6 trials to finish the game and a winner is decided after the 6 trials
+	The highest possible scores for each game (the 6 trials) is 18, 3 points for each valid set found
+3`	Our server guarantees there is a valid set for each trial (the 12 cards on screen)! Just find it!
+4`  Sometimes it might take a while to check the validity of the set you selected. 
+	Please give it a little bit more time to check.
+
+Procedure:
+1`	Each new opened GUI needs to enter a name in the text box before the button join
+	and then click button join
+2` 	Our server will return your player ID. The ID is assigned according to the order you open the GUI,
+	but not the order you click join!
+3`	The number of players in a game is up to 4. If a 5th GUI want to join, the chat box will show "Room full"
+4`	You can play by yourself, or wait for other players to join.
+	After all players pressed join, one of the player can press start and all players start to play.
+	Anyone who tries to join after someone press start will receive message "Room full" 
+5`	The server will send 12 cards to the game fields after start
+	There is always one or more set in the cards sent by the server.
+6`	If anyone find a set, press call button
+7`	The player who pressed call button first can select cards by clicking the cards, after 3 presses
+	the cards information will be automatically sent to server.
+	The player has 10 seconds to select cards after successfully called.
+	Other players cannot call or select cards during this time.
+8`	If the player got a valid set, the score will be updated
+	If the player got a invalid set, the chat box will show "Not A Set"
+	If the player does not make a selection in 10 seconds, the chat box will show "TIMEOUT"
+9`	The chat box will automatically show "Game over" and the winning player number
+10`	All players can leave the game by clicking the button Quit.
+	After the player quit, the player score box will disappear
+	The calculation of winning player will not consider the quit players 
+
+Code for cards' name:
+-Attribution denoted in: 1,2,3
+-Color: red, green, blue
+-shape:diamond, squiggle, rectangle
+-shading: solid, shaded, or open 
+-number: one, two, or three
+
